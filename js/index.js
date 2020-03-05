@@ -76,25 +76,25 @@ class StrategyExpression {
   }
 }
 
-let MIN_ROLL = 1;
+let MIN_ROLL = parseInt(localStorage.getItem('MIN_ROLL')) || 1;
 $("#min-roll").text(MIN_ROLL);
 $("#min-roll").on("change", function() {
   MIN_ROLL = parseInt(this.value);
 });
 
-let MAX_ROLL = 36;
+let MAX_ROLL = parseInt(localStorage.getItem('MAX_ROLL')) || 36;
 $("#max-roll").text(MAX_ROLL);
 $("#max-roll").on("change", function() {
   MAX_ROLL = parseInt(this.value);
 });
 
-let NUM_ZEROS = 2;
+let NUM_ZEROS = parseInt(localStorage.getItem('NUM_ZEROS')) || 2;
 $("#num-zeros").text(NUM_ZEROS);
 $("#num-zeros").on("change", function() {
   NUM_ZEROS = parseInt(this.value);
 });
 
-let ALIASES = {
+let ALIASES = JSON.parse(localStorage.getItem('ALIASES')) || {
   ZERO: "0",
   RED: "1|3|5|7|9|12|14|16|18|19|21|23|25|27|30|32|34|36",
   BLACK: "2|4|6|8|10|11|13|15|17|20|22|24|26|28|29|31|33|35",
@@ -120,7 +120,7 @@ $("#aliases").on("change", function() {
   $("#aliases").addClass("border-red-500");
 });
 
-let PAYOUTS = {
+let PAYOUTS = JSON.parse(localStorage.getItem('PAYOUTS')) || {
   RED: 2,
   BLACK: 2,
   HIGH: 2,
@@ -145,7 +145,7 @@ $("#payouts").on("change", function() {
   $("#payouts").addClass("border-red-500");
 });
 
-let INITIAL_BETS = {
+let INITIAL_BETS = JSON.parse(localStorage.getItem('INITIAL_BETS')) || {
   RED: 1,
   BLACK: 1
 };
@@ -160,10 +160,10 @@ $("#bets").on("change", function() {
   $("#bets").addClass("border-red-500");
 });
 
-let STRATEGY = {
-  ZERO: "$RED = $RED * 2; $BLACK = $BLACK * 2",
-  RED: "$RED = 1; $BLACK = $BLACK * 2",
-  BLACK: "$RED = $RED * 2; $BLACK = 1"
+let STRATEGY = JSON.parse(localStorage.getItem('STRATEGY')) || {
+  ZERO: "$RED *= 2; $BLACK *= 2",
+  RED: "$RED = 1; $BLACK *= 2",
+  BLACK: "$RED *= 2; $BLACK = 1"
 };
 $("#strategy").text(JSON.stringify(STRATEGY, null, 2));
 $("#strategy").on("change", function() {
@@ -176,19 +176,19 @@ $("#strategy").on("change", function() {
   $("#strategy").addClass("border-red-500");
 });
 
-let STARTING_BANK = 1000;
+let STARTING_BANK = parseInt(localStorage.getItem('STARTING_BANK')) || 1000;
 $("#starting-bank").text(STARTING_BANK);
 $("#starting-bank").on("change", function() {
   STARTING_BANK = parseInt(this.value);
 });
 
-let GOAL_BANK = 1050;
+let GOAL_BANK = parseInt(localStorage.getItem('GOAL_BANK')) || 1050;
 $("#goal-bank").text(GOAL_BANK);
 $("#goal-bank").on("change", function() {
   GOAL_BANK = parseInt(this.value);
 });
 
-let NUM_SIMS = 100;
+let NUM_SIMS = parseInt(localStorage.getItem('NUM_SIMS')) || 100;
 $("#num-sims").text(NUM_SIMS);
 $("#num-sims").on("change", function() {
   NUM_SIMS = parseInt(this.value);
@@ -302,6 +302,34 @@ $("#simulate").on("click", function() {
     $("#simulate").addClass("bg-blue-500");
     $("#simulate").removeClass("bg-gray-500 cursor-not-allowed");
   }, 0);
+});
+
+$("#save").on("click", function() {
+  localStorage.setItem("MIN_ROLL", JSON.stringify(MIN_ROLL));
+  localStorage.setItem("MAX_ROLL", JSON.stringify(MAX_ROLL));
+  localStorage.setItem("NUM_ZEROS", JSON.stringify(NUM_ZEROS));
+  localStorage.setItem("ALIASES", JSON.stringify(ALIASES));
+  localStorage.setItem("PAYOUTS", JSON.stringify(PAYOUTS));
+  localStorage.setItem("INITIAL_BETS", JSON.stringify(INITIAL_BETS));
+  localStorage.setItem("STRATEGY", JSON.stringify(STRATEGY));
+  localStorage.setItem("STARTING_BANK", JSON.stringify(STARTING_BANK));
+  localStorage.setItem("GOAL_BANK", JSON.stringify(GOAL_BANK));
+  localStorage.setItem("NUM_SIMS", JSON.stringify(NUM_SIMS));
+});
+
+$("#reset").on("click", function() {
+  localStorage.removeItem("MIN_ROLL");
+  localStorage.removeItem("MAX_ROLL");
+  localStorage.removeItem("NUM_ZEROS");
+  localStorage.removeItem("ALIASES");
+  localStorage.removeItem("PAYOUTS");
+  localStorage.removeItem("INITIAL_BETS");
+  localStorage.removeItem("STRATEGY");
+  localStorage.removeItem("STARTING_BANK");
+  localStorage.removeItem("GOAL_BANK");
+  localStorage.removeItem("NUM_SIMS");
+
+  location.reload();
 });
 
 $('.collapsable > .collapse-button').on('click', function() {

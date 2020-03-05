@@ -1,3 +1,11 @@
 .collapsable {
   margin-bottom: -24px;
 }
+
+.button {
+  min-width: 200px;
+}
+
+#simulate {
+  min-width: 300px;
+}

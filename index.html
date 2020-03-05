@@ -10,9 +10,17 @@
 
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="stylesheet" href="./css/myStyles.css">
+
+  <link rel="shortcut icon" href="./imgs/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="./imgs/favicon.ico" type="image/x-icon">
 </head>
 
 <body class="bg-gray-100">
+  <section class="p-8 pb-0 flex items-center">
+    <img src="./imgs/roulette.svg" class="w-16 h-16" />
+    <span class="ml-4 text-4xl">Roulette Simulator</span>
+  </section>
+
   <section class="h-0 p-8 overflow-hidden collapsable">
     <button class="collapse-button block">
       <h3 class="text-xl font-bold"><span class="mr-4">+</span>Board Config</h3>
@@ -115,7 +123,9 @@
   </section>
 
   <section class="p-8 overflow-hidden">
-    <button id="simulate" class="my-8 bg-blue-500 px-24 py-4 font-bold text-white rounded-lg shadow-sm focus:shadow-focus focus:outline-none">SIMULATE!</button>
+    <button id="simulate" class="my-8 bg-blue-500 px-12 button py-4 font-bold text-white rounded-lg shadow-sm focus:shadow-focus focus:outline-none">SIMULATE!</button>
+    <button id="save" class="ml-4 my-8 bg-green-500 px-12 button py-4 font-bold text-white rounded-lg shadow-sm focus:shadow-focus focus:outline-none">SAVE!</button>
+    <button id="reset" class="ml-4 my-8 bg-red-500 px-12 button py-4 font-bold text-white rounded-lg shadow-sm focus:shadow-focus focus:outline-none">RESET!</button>
     <p class="text-xl">Sucess rate: <span class="font-bold" id="success-rate">--</span></p>
     <p class="text-xl">Average num rolls: <span class="font-bold" id="avg-num-rolls">--</span></p>
     <p class="text-xl">Average ending bank: <span class="font-bold" id="avg-end-bank">--</span></p>
