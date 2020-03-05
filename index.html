@@ -39,10 +39,6 @@
     </button>
     <p class="text-md leading-tight">
       <br>
-      An alias is just a word that represents a set of numbers.<br>
-      <br>
-      Alias names can contain letters, numbers, or underscores, but must start with a letter. Example: "EVEN_COL_2"<br>
-      <br>
       Alias values may take one of 3 forms:<br>
       1) "A" - the single number A. Example: "12" <=> { 12 }<br>
       2) "A-B" - any number inbetween A and B (inclusive). Example: "12-15" <=> { 12, 13, 14, 15 }<br>
@@ -50,7 +46,7 @@
       <br>
       You can also combine alias values with "|". Example: "2-4|15" <=> { 2, 3, 4, 15 }<br>
       <br>
-      **In order to bet on a set of numbers or change your bets when a set hits, you must define an alias for it.**<br>
+      Alias names can contain letters, numbers, or underscores, but must start with a letter. Example: "EVEN_COL_2"<br>
       <br>
     </p>
     <textarea rows="15" id="aliases" class="p-4 focus:shadow-focus focus:outline-none w-full border-black border-2 rounded-lg"></textarea>
@@ -62,11 +58,7 @@
     </button>
     <p class="text-md leading-tight">
       <br>
-      List how much each alias pays out if you bet on it and it hits.<br>
-      <br>
-      { "BLACK": 6 } means if you bet $1 on the "BLACK" alias and it hits, then you get back $6.<br>
-      <br>
-      **In order to bet on an alias, you must list a payout for it**<br>
+      { "BLACK": 2 } means if you bet $1 on the "BLACK" alias and it hits, then you get back $2.<br>
       <br>
     </p>
     <textarea rows="14" id="payouts" class="p-4 focus:shadow-focus focus:outline-none w-full border-black border-2 rounded-lg"></textarea>
@@ -78,9 +70,7 @@
     </button>
     <p class="text-md leading-tight">
       <br>
-      List your initial bets.<br>
-      <br>
-      { "ODD": 3 } means bet $3 on the "ODD" alias to start.<br>
+      { "RED": 1 } means bet $1 on the "RED" alias to start.<br>
       <br>
     </p>
     <textarea rows="10" id="bets" class="p-4 focus:shadow-focus focus:outline-none w-full border-black border-2 rounded-lg"></textarea>
@@ -92,8 +82,6 @@
     </button>
     <p class="text-md leading-tight">
       <br>
-      This is where you tell the simulator how to update your bets after each roll.<br>
-      <br>
       { "ODD": "$EVEN = $EVEN * 2" } means anytime the "ODD" alias hits, double our bet on the "EVEN" alias.<br>
       <br>
       You may use addition (+), subtraction (-), multiplication (*), division (/), and parentheses in strategy values.<br>
@@ -101,7 +89,6 @@
       You may also use alias names as long as they are prefixed with a "$" and have an initial bet defined.<br>
       <br>
       You may also combine strategy values with semicolons, in order to update multiple bets when one alias hits.<br>
-      Example: { "ODD": "$EVEN = $EVEN * 6; $ODD = 1; $COL_1 = $ODD / ($EVEN - 1)" }<br>
       <br>
     </p>
     <textarea rows="10" id="strategy" class="p-4 focus:shadow-focus focus:outline-none w-full border-black border-2 rounded-lg"></textarea>
@@ -130,8 +117,8 @@
   <section class="p-8 overflow-hidden">
     <button id="simulate" class="my-8 bg-blue-500 px-24 py-4 font-bold text-white rounded-lg shadow-sm focus:shadow-focus focus:outline-none">SIMULATE!</button>
     <p class="text-xl">Sucess rate: <span class="font-bold" id="success-rate">--</span></p>
-    <p class="text-xl">Average ending bank: <span class="font-bold" id="avg-end-bank">--</span></p>
     <p class="text-xl">Average num rolls: <span class="font-bold" id="avg-num-rolls">--</span></p>
+    <p class="text-xl">Average ending bank: <span class="font-bold" id="avg-end-bank">--</span></p>
     <p class="text-xl">Theoretical average net: <span class="font-bold" id="avg-net">--</span></p>
   </section>
 

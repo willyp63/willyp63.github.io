@@ -208,6 +208,7 @@ $("#simulate").on("click", function() {
   $("#avg-num-rolls").text("--");
   $("#avg-net").text("--");
   $("#avg-net").removeClass("text-red-500 text-green-500");
+  $("#avg-end-bank").removeClass("text-red-500 text-green-500");
 
   setTimeout(() => {
     const aliasExpressions = {};
@@ -278,9 +279,10 @@ $("#simulate").on("click", function() {
     const successRate = numSuccess / NUM_SIMS;
     const avgNet = successRate * (GOAL_BANK - STARTING_BANK) -
     (1 - successRate) * STARTING_BANK;
+    const avgEndBank = totalBankAfter / NUM_SIMS;
 
     $("#success-rate").text(formatPercent(successRate));
-    $("#avg-end-bank").text(formatCurrency(totalBankAfter / NUM_SIMS));
+    $("#avg-end-bank").text(formatCurrency(avgEndBank));
     $("#avg-num-rolls").text(formatNumber(totalNumRolls / NUM_SIMS));
     $("#avg-net").text(formatCurrency(avgNet));
 
@@ -288,6 +290,12 @@ $("#simulate").on("click", function() {
       $("#avg-net").addClass("text-green-500");
     } else if (avgNet < 0) {
       $("#avg-net").addClass("text-red-500");
+    }
+
+    if(avgEndBank > STARTING_BANK) {
+      $("#avg-end-bank").addClass("text-green-500");
+    } else if (avgEndBank < STARTING_BANK) {
+      $("#avg-end-bank").addClass("text-red-500");
     }
 
     $("#simulate").attr("disabled", false);
