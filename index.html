@@ -1,0 +1,144 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Roulette Simulator</title>
+  <meta name="description" content="A roulette simulator">
+  <meta name="author" content="Wil Pirino">
+
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/myStyles.css">
+</head>
+
+<body class="bg-gray-100">
+  <section class="h-0 p-8 overflow-hidden collapsable">
+    <button class="collapse-button block">
+      <h3 class="text-xl font-bold"><span class="mr-4">+</span>Board Config</h3>
+    </button>
+    <div class="mt-4">
+      <span class="mr-8">
+        <label for="min-roll">Min Roll:</label>
+        <input id="min-roll" type="number" value="1" class="p-2 focus:shadow-focus focus:outline-none border-black border-2 rounded-lg" />
+      </span>
+      <span class="mr-8">
+        <label for="max-roll">Max Roll:</label>
+        <input id="max-roll" type="number" value="36" class="p-2 focus:shadow-focus focus:outline-none border-black border-2 rounded-lg" />
+      </span>
+      <span class="mr-8">
+        <label for="num-zeros">Num Zeros:</label>
+        <input id="num-zeros" type="number" value="2" class="p-2 focus:shadow-focus focus:outline-none border-black border-2 rounded-lg" />
+      </span>
+    </div>
+  </section>
+
+  <section class="h-0 p-8 overflow-hidden collapsable">
+    <button class="collapse-button">
+      <h3 class="text-xl font-bold"><span class="mr-4">+</span>Aliases</h3>
+    </button>
+    <p class="text-md leading-tight">
+      <br>
+      An alias is just a word that represents a set of numbers.<br>
+      <br>
+      Alias names can contain letters, numbers, or underscores, but must start with a letter. Example: "EVEN_COL_2"<br>
+      <br>
+      Alias values may take one of 3 forms:<br>
+      1) "A" - the single number A. Example: "12" <=> { 12 }<br>
+      2) "A-B" - any number inbetween A and B (inclusive). Example: "12-15" <=> { 12, 13, 14, 15 }<br>
+      3) "An+B" - any number that can be made by setting n equal to a positive integer. Example: "2n+1" <=> { 1, 3, 5, 7, 9, ... }<br>
+      <br>
+      You can also combine alias values with "|". Example: "2-4|15" <=> { 2, 3, 4, 15 }<br>
+      <br>
+      **In order to bet on a set of numbers or change your bets when a set hits, you must define an alias for it.**<br>
+      <br>
+    </p>
+    <textarea rows="15" id="aliases" class="p-4 focus:shadow-focus focus:outline-none w-full border-black border-2 rounded-lg"></textarea>
+  </section>
+
+  <section class="h-0 p-8 overflow-hidden collapsable">
+    <button class="collapse-button">
+      <h3 class="text-xl font-bold"><span class="mr-4">+</span>Payouts</h3>
+    </button>
+    <p class="text-md leading-tight">
+      <br>
+      List how much each alias pays out if you bet on it and it hits.<br>
+      <br>
+      { "BLACK": 6 } means if you bet $1 on the "BLACK" alias and it hits, then you get back $6.<br>
+      <br>
+      **In order to bet on an alias, you must list a payout for it**<br>
+      <br>
+    </p>
+    <textarea rows="14" id="payouts" class="p-4 focus:shadow-focus focus:outline-none w-full border-black border-2 rounded-lg"></textarea>
+  </section>
+
+  <section class="h-0 p-8 overflow-hidden collapsable">
+    <button class="collapse-button">
+      <h3 class="text-xl font-bold"><span class="mr-4">+</span>Initial Bets</h3>
+    </button>
+    <p class="text-md leading-tight">
+      <br>
+      List your initial bets.<br>
+      <br>
+      { "ODD": 3 } means bet $3 on the "ODD" alias to start.<br>
+      <br>
+    </p>
+    <textarea rows="10" id="bets" class="p-4 focus:shadow-focus focus:outline-none w-full border-black border-2 rounded-lg"></textarea>
+  </section>
+
+  <section class="h-0 p-8 overflow-hidden collapsable">
+    <button class="collapse-button">
+      <h3 class="text-xl font-bold"><span class="mr-4">+</span>Strategy</h3>
+    </button>
+    <p class="text-md leading-tight">
+      <br>
+      This is where you tell the simulator how to update your bets after each roll.<br>
+      <br>
+      { "ODD": "$EVEN = $EVEN * 2" } means anytime the "ODD" alias hits, double our bet on the "EVEN" alias.<br>
+      <br>
+      You may use addition (+), subtraction (-), multiplication (*), division (/), and parentheses in strategy values.<br>
+      <br>
+      You may also use alias names as long as they are prefixed with a "$" and have an initial bet defined.<br>
+      <br>
+      You may also combine strategy values with semicolons, in order to update multiple bets when one alias hits.<br>
+      Example: { "ODD": "$EVEN = $EVEN * 6; $ODD = 1; $COL_1 = $ODD / ($EVEN - 1)" }<br>
+      <br>
+    </p>
+    <textarea rows="10" id="strategy" class="p-4 focus:shadow-focus focus:outline-none w-full border-black border-2 rounded-lg"></textarea>
+  </section>
+
+  <section class="h-0 p-8 overflow-hidden collapsable">
+    <button class="collapse-button">
+      <h3 class="text-xl font-bold"><span class="mr-4">+</span>Simulator Config</h3>
+    </button>
+    <div class="mt-4">
+      <span class="mr-8">
+        <label for="starting-bank">Starting Bank:</label>
+        <input id="starting-bank" type="number" value="1000" class="p-2 focus:shadow-focus focus:outline-none border-black border-2 rounded-lg" />
+      </span>
+      <span class="mr-8">
+        <label for="goal-bank">Goal Bank:</label>
+        <input id="goal-bank" type="number" value="1050" class="p-2 focus:shadow-focus focus:outline-none border-black border-2 rounded-lg" />
+      </span>
+      <span class="mr-8">
+        <label for="num-sims">Num Sims:</label>
+        <input id="num-sims" type="number" value="100" class="p-2 focus:shadow-focus focus:outline-none border-black border-2 rounded-lg" />
+      </span>
+    </div>
+  </section>
+
+  <section class="p-8 overflow-hidden">
+    <button id="simulate" class="my-8 bg-blue-500 px-24 py-4 font-bold text-white rounded-lg shadow-sm focus:shadow-focus focus:outline-none">SIMULATE!</button>
+    <p class="text-xl">Sucess rate: <span class="font-bold" id="success-rate">--</span></p>
+    <p class="text-xl">Average ending bank: <span class="font-bold" id="avg-end-bank">--</span></p>
+    <p class="text-xl">Average num rolls: <span class="font-bold" id="avg-num-rolls">--</span></p>
+    <p class="text-xl">Theoretical average net: <span class="font-bold" id="avg-net">--</span></p>
+  </section>
+
+  <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>
+  <script src="./js/index.js"></script>
+</body>
+</html>
