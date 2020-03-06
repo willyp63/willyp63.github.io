@@ -1,11 +1,49 @@
-.collapsable {
-  margin-bottom: -24px;
-}
-
 .button {
   min-width: 200px;
 }
 
 #simulate {
   min-width: 300px;
+}
+
+input {
+  max-width: 125px;
+}
+
+.collapse-content {
+  transition: height 200ms;
+}
+
+.relative {
+  position: relative;
+}
+
+.wheel,
+.ball {
+  width: 200px;
+  height: 200px;
+}
+
+.ball {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.spin {
+  animation: spin 2s;
+}
+
+.spin-opposite {
+  animation: spin-opposite 2s;
+}
+
+@keyframes spin {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(1080deg);}
+}
+
+@keyframes spin-opposite {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(-360deg);}
 }
